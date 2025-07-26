@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Plymorphism example
+	</title>
+</head>
+<body>
+<script>
+	class Payment
+	{
+		processpayment(amount)
+		{
+			console.log(` proccessing payment of ${amount}`);
+		}
+	}
+	class creditcard extends Payment
+	{
+		processpayment(amount)
+		{
+			console.log(`Processing credit card Payment of ${amount}`)
+		}
+	}
+	class Paypal extends Payment
+	{
+		processpayment(amount)
+		{
+			console.log(`Processing Paypal Payment of ${amount}`)
+		}
+	}
+	class Bkash extends Payment
+	{
+		processpayment(amount)
+		{
+			console.log(`Processing Bkash Payment of ${amount}`)
+		}
+	}
+
+	function makepayment(paymentMethod,amount)
+	{
+		paymentMethod.processpayment(amount);
+	}
+
+	const card = new creditcard();
+	const card2 = new Paypal();
+	const card3 = new Bkash();
+
+	makepayment(card,100);
+	makepayment(card2,500);
+	makepayment(card3,1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		payment 
+	</title>
+	<style>
+		body 
+		{
+			font-family: Arial,sans-serif;
+			text-align: center;
+			margin-top: 50px;
+
+
+		}
+		.ammount_input{
+			display: none;
+			margin-top: 10px;
+		}
+		.cardamount
+		{
+			display: none;
+			margin-top: 10px;
+		}
+		.container
+		{
+			display: inline-block;
+			text-align: left;
+			padding: 20px;
+			border: 1px solid black;
+			border-radius: 5px;
+			box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+
+
+		}
+		button:hover
+		{
+			background-color: green;
+
+		}
+		#amount:hover 
+		{
+			border: 1px solid green;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+	<h4>Select Payment Method</h4>
+	<div class="container">
+		<form id="payform">
+			<label>
+				<input type="radio" name="paymentMethod" value="cash" onclick="showInputAmount()">Cash
+			</label><br>
+			<label>
+				<input type="radio" name="paymentMethod" value="CreditCard" onclick="showcardamount()">CreditCard
+			</label><br>
+			<label>
+				<input type="radio" name="paymentMethod" value="Paypal" onclick="showcardamount()">Paypal
+			</label><br>
+			</form>
+
+			
+
+
+			<div id="ammountdiv" class="ammount_input">
+				<label>Enter Amount:</label>
+				<input type="number" name="amount" id="amount"><br>
+				<button type="button" onclick="processAmount()">Submit</button>
+				<h3 id="output"></h3>
+			</div>
+
+
+			<div class="cardamount" id="carddiv">
+				<label>Enter Your Card No:</label>
+				<input type="number" name="amount" id="amount"><br>
+				<label>Enter Amount:</label>
+				<input type="number" name="amount" id="amount"><br>
+				<button type="button" onclick="processAmount()">Submit</button>
+				<h3 id="output"></h3>
+			</div>
+				
+	</div>
+	
+	<script>
+		class Payment
+	{
+		constructor(amount) // overridded function
+		{
+			this.amount=amount;
+		}
+		pay()
+		{
+			return `Paid ${this.amount} using default Method`;
+		}
+	}
+
+
+
+	class cash extends Payment
+	{
+		pay()
+		{
+			return `Paid ${this.amount} using by Cash`;
+		}
+	}
+
+	class Creditcard extends Payment
+	{
+		pay()
+		{
+			return `Paid ${this.amount} using by Credit Card`;
+		}
+	}
+
+	class Paypal extends Payment
+	{
+		pay()
+		{
+			return `Paid ${this.amount} using by Paypal`;
+		}
+	}
+
+
+
+	function showInputAmount()
+	{
+		document.getElementById('ammountdiv').style.display='block';
+		
+	}
+	function showcardamount()
+	{
+		document.getElementById('carddiv').style.display='block';
+	}
+
+
+	function processAmount()
+	{
+		let selectMethod = document.querySelector('input[name="paymentMethod"]:checked');
+		let amount = document.getElementById("amount").value;
+
+		if(selectMethod.value=="cash")
+		{
+			showInputAmount()
+		}
+		else
+		{
+			showcardamount()
+		}
+
+
+		if(!selectMethod || amount === "")
+		{
+			alert("Please Select Payment Select")
+		}
+
+		let payment;
+		switch (selectMethod.value) {
+			case"cash":
+				payment=new cash(amount);
+				break;
+			case"CreditCard":
+				payment=new Creditcard(amount);
+				break;
+			case"Paypal":
+				payment=new Paypal(amount);
+				break;
+
+			default:
+			   payment =new payment(amount);
+
+				
+				
+		}
+		document.getElementById('output').innerHTML=payment.pay();
+	}
+	</script>
+
+</body>
+</html>

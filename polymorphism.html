@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		Polymorphism Example in Java script
+	</title>
+</head>
+<body>
+	<script>
+		class Animal
+		{
+			constructor()
+			{
+				this.name=name;
+			}
+			eats()
+			{
+				console.log(name+" eats Food");
+			}
+		}
+		class Snake extends Animal
+		{
+			eats()
+			{
+				super.eats();
+				console.log(this.name+" eats Fish");
+
+			}
+
+		}
+
+		var a = new Snake("Elephant")
+		a.eats();
+	</script>
+
+</body>
+</html>
